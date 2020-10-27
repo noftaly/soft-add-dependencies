@@ -1,4 +1,3 @@
-/* eslint-disable object-curly-newline */
 import path from 'path';
 import editJsonFile from 'edit-json-file';
 import type { Result } from 'libnpmsearch';
@@ -68,11 +67,13 @@ export default class SoftAddDependencies {
       // Return a tuple with the dependency name and its version (formatted with the semver compatibility format)
       .map(dep => [dep.name, `^${dep.version}`]);
 
+    /* eslint-disable object-curly-newline */
     let allDependencies = this.shouldOverwrite
       ? { ...file.get(this.saveMode),
           ...Object.fromEntries(newDependencies) }
       : { ...Object.fromEntries(newDependencies),
           ...file.get(this.saveMode) };
+    /* eslint-enable object-curly-newline */
 
     allDependencies = Object.keys(allDependencies)
       .sort()
