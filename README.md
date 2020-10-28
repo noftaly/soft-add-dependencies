@@ -58,11 +58,13 @@ $ soft-add-dependencies zlib-sync sodium --overwrite --mode optional
 
 **Parameters:**
 - An object with the following fields:
-  - `destination` (mandatory) (`string`): The destination path, relative to the current working directory (`process.cwd()`)
+  - `destination` (mandatory) (`string`): The destination path
   - `overwrite` (optional) (`boolean`): If it should overwrite the version if the package is already present
   - `packages` (optional) (`string[]`): List of packages to install
   - `saveMode` (optional) (`SaveMode`): The mode to save the dependencies
-- A `string`, which is the destination path, relative to the current working directory (`process.cwd()`)
+- A `string`, which is the destination path
+
+**NOTE:** If the provided destination is absolute, then it will be used. Otherwise, it will be used relatively to the current working directory (`process.cwd()`)
 
 ###### SoftAddDependencies#`overwrite()`
 

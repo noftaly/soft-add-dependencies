@@ -3,7 +3,7 @@
 import { promises as fs } from 'fs';
 import meow from 'meow';
 import * as pkg from '../package.json';
-import SoftAddDependencies, { SaveMode } from './SoftAddDependencies';
+import SoftAddDependencies, { SaveMode } from './index';
 
 async function exists(filepath: string): Promise<boolean> {
   try {

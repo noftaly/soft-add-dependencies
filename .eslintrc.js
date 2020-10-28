@@ -18,7 +18,7 @@ module.exports = {
     '@typescript-eslint/no-unsafe-return': 'off',
     'node/shebang': ['error', {
       convertPath: {
-        'src/main.ts': ['^src/main.ts$', 'lib/src/main.js'],
+        'src/cli.ts': ['^src/cli.ts$', 'lib/src/cli.js'],
       },
     }],
   },
