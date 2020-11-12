@@ -1,6 +1,6 @@
 {
   "name": "soft-add-dependencies",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Add dependencies to your package.json without installing them.",
   "main": "./lib/src/index.js",
   "types": "./lib/src/index.d.ts",
