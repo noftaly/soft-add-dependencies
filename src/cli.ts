@@ -80,8 +80,8 @@ void (async (): Promise<void> => {
       saveMode: getMode(cli.flags.saveMode),
     }).run();
   } catch (err: unknown) {
-    console.log('An error occured while using nipinit... More information are available below this message.');
-    console.log('If you think this is a bug, please report it here: https://github.com/noftaly/nipinit, with the "bug" issue template filled correctly.');
+    console.log('An error occured while using soft-add-dependencies... More information are available below this message.');
+    console.log('If you think this is a bug, please report it here: https://github.com/noftaly/soft-add-dependencies, with the "bug" issue template filled correctly.');
     console.log();
     console.error(err);
   }
