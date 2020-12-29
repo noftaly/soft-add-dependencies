@@ -58,10 +58,14 @@ const cli = meow(`
   });
 
 void (async (): Promise<void> => {
-  if (cli.flags.h)
-    return cli.showHelp();
-  if (cli.flags.v)
-    return cli.showVersion();
+  if (cli.flags.h) {
+    cli.showHelp();
+    return;
+  }
+  if (cli.flags.v) {
+    cli.showVersion();
+    return;
+  }
 
   try {
     const packages: string[] = cli.input;
@@ -70,8 +74,10 @@ void (async (): Promise<void> => {
     if (await exists(packages[0]))
       destination = packages.shift();
 
-    if (packages.length === 0)
-      return console.log('You must enter dependencies');
+    if (packages.length === 0) {
+      console.log('You must enter dependencies');
+      return;
+    }
 
     await new SoftAddDependencies({
       destination,
