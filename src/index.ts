@@ -57,7 +57,7 @@ export default class SoftAddDependencies {
     for (const dependency of this.packages)
       pendingDependenciesInfos.push(search(dependency));
 
-    const newDependencies: Array<[string, string]> = (await Promise.allSettled(pendingDependenciesInfos))
+    const newDependencies: Array<[pkg: string, version: string]> = (await Promise.allSettled(pendingDependenciesInfos))
       // Keep only successful promises
       .filter((promise): promise is PromiseFulfilledResult<Result[]> => promise.status === 'fulfilled')
       .map(promise => promise.value)
