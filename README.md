@@ -2,6 +2,8 @@
 
 > ⚡️ Add dependencies to your package.json without installing them.
 
+`sort-add-dependencies` is a small package to add dependencies without installing them. It has a powerful yet easy JavaScript and TypeScript API, with chainable methods, promise support, and strong typings, but it also has a CLI to add packages from your terminal!
+
 ## Table of Contents
 - [Usage](#usage)
   - [CLI](#cli)
@@ -96,6 +98,7 @@ You can also use `soft-add-dependencies` directly inside your JavaScript/TypeScr
 ```js
 import SoftAddDependencies, { SaveMode } from 'soft-add-dependencies';
 
+// Using options in the constructor:
 await new SoftAddDependencies({
   destination: './project/package.json',
   packages: ['@babel/core', '@babel/node', '@babel/preset-env'],
@@ -103,8 +106,7 @@ await new SoftAddDependencies({
   saveMode: SaveMode.Dev,
 }).run();
 
-// OR
-
+// Or using the chainable API:
 await new SoftAddDependencies('./project/package.json')
   .add('@babel/core', '@babel/node', '@babel/preset-env')
   .overwrite()
@@ -114,4 +116,4 @@ await new SoftAddDependencies('./project/package.json')
 
 ## License
 
-Copyright © 2020 Elliot 'noftaly' Maisl. Licensed under the MIT license, see [the license](./LICENSE)
+Copyright © 2020 Elliot 'noftaly' Maisl. Licensed under the MIT license, see [the license](./LICENSE).
