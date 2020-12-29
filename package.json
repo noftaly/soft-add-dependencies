@@ -15,21 +15,21 @@
   "license": "MIT",
   "dependencies": {
     "edit-json-file": "^1.5.0",
-    "libnpmsearch": "^3.0.0",
-    "meow": "^7.1.1"
+    "libnpmsearch": "^3.1.0",
+    "meow": "^8.1.0"
   },
   "devDependencies": {
     "@types/edit-json-file": "^1.4.0",
     "@types/libnpmsearch": "^2.0.1",
     "@types/meow": "^5.0.0",
-    "@typescript-eslint/eslint-plugin": "^4.6.0",
-    "@typescript-eslint/parser": "^4.6.0",
-    "eslint": "^7.12.1",
-    "eslint-config-noftalint": "^1.13.0-beta.1",
+    "@typescript-eslint/eslint-plugin": "^4.11.1",
+    "@typescript-eslint/parser": "^4.11.1",
+    "eslint": "^7.16.0",
+    "eslint-config-noftalint": "^1.16.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-unicorn": "^23.0.0",
-    "typescript": "^4.0.5"
+    "eslint-plugin-unicorn": "^24.0.0",
+    "typescript": "^4.1.3"
   },
   "engines": {
     "node": ">=12.9.0"
