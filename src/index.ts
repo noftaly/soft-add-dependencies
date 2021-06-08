@@ -35,13 +35,19 @@ export default class SoftAddDependencies {
     }
   }
 
+  private static _resolvePath(destination: string): string {
+    return path.isAbsolute(destination)
+      ? destination
+      : path.join(process.cwd(), destination);
+  }
+
   public overwrite(): this {
     this.shouldOverwrite = true;
     return this;
   }
 
   public add(...deps: string[]): this {
-    this.packages = this.packages.concat(deps);
+    this.packages = [...this.packages, ...deps];
     return this;
   }
 
@@ -51,7 +57,7 @@ export default class SoftAddDependencies {
   }
 
   public async run(): Promise<void> {
-    const file = editJsonFile(this.resolvePath(this.destination));
+    const file = editJsonFile(SoftAddDependencies._resolvePath(this.destination));
     const pendingDependenciesInfos: Array<Promise<Result[]>> = [];
 
     for (const dependency of this.packages)
@@ -68,7 +74,7 @@ export default class SoftAddDependencies {
       .map(dep => [dep.name, `^${dep.version}`]);
 
     /* eslint-disable object-curly-newline */
-    let allDependencies = this.shouldOverwrite
+    let allDependencies: Record<string, string> = this.shouldOverwrite
       ? { ...file.get(this.saveMode),
           ...Object.fromEntries(newDependencies) }
       : { ...Object.fromEntries(newDependencies),
@@ -84,11 +90,5 @@ export default class SoftAddDependencies {
 
     file.set(this.saveMode, allDependencies);
     file.save();
-  }
-
-  protected resolvePath(destination: string): string {
-    return path.isAbsolute(destination)
-      ? destination
-      : path.join(process.cwd(), destination);
   }
 }
