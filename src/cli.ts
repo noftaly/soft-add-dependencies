@@ -1,9 +1,10 @@
-#!/usr/bin/env node
+#!/usr/bin/env node --no-warnings
 
-import { promises as fs } from 'fs';
+import { promises as fs } from 'node:fs';
+import path from 'node:path';
 import meow from 'meow';
-import * as pkg from '../package.json';
-import SoftAddDependencies, { SaveMode } from './index';
+import pkg from '../package.json' assert { type: 'json' };
+import { SoftAddDependencies, SaveMode } from './index.js';
 
 async function exists(filepath: string): Promise<boolean> {
   try {
@@ -49,6 +50,7 @@ const cli = meow(`
   `,
   {
     pkg,
+    importMeta: import.meta,
     flags: {
       saveMode: { type: 'string', alias: 's', default: SaveMode.Normal },
       overwrite: { type: 'boolean', alias: 'o', default: false },
@@ -69,10 +71,10 @@ void (async (): Promise<void> => {
 
   try {
     const packages: string[] = cli.input;
-    let destination: string;
+    let destination = path.join(process.cwd(), './package.json');
 
     if (await exists(packages[0]))
-      destination = packages.shift();
+      destination = packages.shift()!;
 
     if (packages.length === 0) {
       console.log('You must enter dependencies');

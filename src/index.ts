@@ -1,8 +1,7 @@
-import path from 'path';
+import path from 'node:path';
 import editJsonFile from 'edit-json-file';
 import type { Result } from 'libnpmsearch';
 import search from 'libnpmsearch';
-
 
 export enum SaveMode {
   Normal = 'dependencies',
@@ -13,12 +12,12 @@ export enum SaveMode {
 
 interface Options {
   destination: string;
-  overwrite?: boolean;
-  packages?: string[];
-  saveMode?: SaveMode;
+  overwrite?: boolean | null;
+  packages?: string[] | null;
+  saveMode?: SaveMode | null;
 }
 
-export default class SoftAddDependencies {
+export class SoftAddDependencies {
   public saveMode: SaveMode = SaveMode.Normal;
   public packages: string[] = [];
   public shouldOverwrite = false;
@@ -28,10 +27,10 @@ export default class SoftAddDependencies {
     if (typeof optionsOrDestination === 'string') {
       this.destination = optionsOrDestination;
     } else {
-      this.destination = optionsOrDestination.destination || './package.json';
-      this.shouldOverwrite = optionsOrDestination.overwrite ?? false;
-      this.packages = optionsOrDestination.packages || [];
-      this.saveMode = optionsOrDestination.saveMode || SaveMode.Normal;
+      this.destination = optionsOrDestination.destination;
+      this.shouldOverwrite = optionsOrDestination?.overwrite ?? false;
+      this.packages = optionsOrDestination?.packages ?? [];
+      this.saveMode = optionsOrDestination?.saveMode ?? SaveMode.Normal;
     }
   }
 
@@ -71,7 +70,7 @@ export default class SoftAddDependencies {
       .map((matching, i) => matching.find(dep => dep.name === this.packages[i]))
       .filter(Boolean)
       // Return a tuple with the dependency name and its version (formatted with the semver compatibility format)
-      .map(dep => [dep.name, `^${dep.version}`]);
+      .map(dep => [dep!.name, `^${dep!.version}`]);
 
     /* eslint-disable object-curly-newline */
     let allDependencies: Record<string, string> = this.shouldOverwrite
@@ -83,7 +82,7 @@ export default class SoftAddDependencies {
 
     allDependencies = Object.keys(allDependencies)
       .sort()
-      .reduce((res, key) => {
+      .reduce<Record<string, string>>((res, key) => {
         res[key] = allDependencies[key];
         return res;
       }, {});
